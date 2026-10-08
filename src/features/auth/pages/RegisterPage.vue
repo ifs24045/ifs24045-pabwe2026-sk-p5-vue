@@ -38,7 +38,7 @@ const handleSubmit = async () => {
 
 <template>
   <div data-testid="register-page">
-    <h2 class="text-3xl font-extrabold text-slate-900">Buat akun baru</h2>
+    <h1 class="text-3xl font-extrabold text-slate-900">Buat akun baru</h1>
     <p class="mt-2 text-sm text-slate-500">
       Daftar gratis dan mulai ikut lelang hari ini.
     </p>

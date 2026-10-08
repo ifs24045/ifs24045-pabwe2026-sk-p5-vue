@@ -30,9 +30,9 @@ const handleSubmit = async () => {
 
 <template>
   <div data-testid="login-page">
-    <h2 class="text-3xl font-extrabold text-slate-900">
+    <h1 class="text-3xl font-extrabold text-slate-900">
       Selamat datang kembali
-    </h2>
+    </h1>
     <p class="mt-2 text-sm text-slate-500">
       Masuk untuk mulai menawar barang lelang.
     </p>

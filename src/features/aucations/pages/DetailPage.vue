@@ -111,21 +111,21 @@ const handleCancelBid = async () => {
       Kembali ke dashboard
     </RouterLink>
 
-    <p
+    <h1
       v-if="aucationsStore.isAucation"
       class="py-12 text-center text-slate-500"
       data-testid="loading-state"
     >
       Memuat lelang...
-    </p>
+    </h1>
 
-    <p
+    <h1
       v-else-if="!aucation"
       class="py-12 text-center text-slate-500"
       data-testid="not-found-state"
     >
       Lelang tidak ditemukan.
-    </p>
+    </h1>
 
     <div v-else>
       <div class="grid gap-8 lg:grid-cols-3">

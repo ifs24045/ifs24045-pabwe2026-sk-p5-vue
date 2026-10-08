@@ -53,6 +53,7 @@ const linkClass = (item) =>
 
     <aside
       data-testid="sidebar"
+      aria-label="Sidebar aplikasi"
       :class="[
         'fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-slate-200 bg-white p-4 transition-transform lg:translate-x-0',
         open ? 'translate-x-0' : '-translate-x-full',
@@ -74,7 +75,7 @@ const linkClass = (item) =>
         </button>
       </div>
 
-      <nav class="space-y-1">
+      <nav class="space-y-1" aria-label="Navigasi utama">
         <RouterLink
           v-for="item in items"
           :key="item.label"

@@ -64,7 +64,7 @@ onMounted(() => {
             <Mail class="h-4 w-4 shrink-0" />
             {{ user.email }}
           </p>
-          <p class="mt-1 text-xs text-slate-400">
+          <p class="mt-1 text-xs text-slate-500">
             Bergabung {{ formatDate(user.created_at) }}
           </p>
         </div>

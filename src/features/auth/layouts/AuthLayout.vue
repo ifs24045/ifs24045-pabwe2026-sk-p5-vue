@@ -20,9 +20,9 @@ import { Gavel } from "lucide-vue-next";
       </div>
 
       <div>
-        <h1 class="text-4xl font-extrabold leading-tight">
+        <p class="text-4xl font-extrabold leading-tight">
           Temukan barang incaranmu, tawar sekarang.
-        </h1>
+        </p>
         <p class="mt-4 max-w-md text-indigo-100">
           Pasang lelang barangmu sendiri atau ikut menawar barang dari
           pengguna lain, semuanya dalam satu tempat.

@@ -110,7 +110,7 @@ const handlePasswordSubmit = async () => {
         <p class="text-sm text-slate-500" data-testid="profile-email">
           {{ usersStore.profile.email }}
         </p>
-        <p class="mt-1 text-xs text-slate-400">
+        <<p class="mt-1 text-xs text-slate-500">>
           Bergabung {{ formatDate(usersStore.profile.created_at) }}
         </p>
 
