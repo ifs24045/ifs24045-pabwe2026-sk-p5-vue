@@ -60,7 +60,7 @@ const handleLogout = async () => {
           <p class="text-xs text-slate-500">{{ usersStore.profile.email }}</p>
         </div>
       </div>
-      <span v-else class="text-sm text-slate-400" data-testid="user-loading">
+      <span v-else class="text-sm text-slate-500" data-testid="user-loading">
         Memuat...
       </span>
 

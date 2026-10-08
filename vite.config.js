@@ -6,6 +6,13 @@ import process from "process";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
+  // Build produksi (Vercel) memakai proxy same-origin agar tidak terkena
+  // peringatan CORS; dev dan test tetap langsung ke server Delcom.
+  const defaultBaseUrl =
+    mode === "production"
+      ? "/api/v1"
+      : "https://open-api.delcom.org/api/v1";
+
   return {
     plugins: [vue(), tailwindcss()],
     server: {
@@ -15,9 +22,7 @@ export default defineConfig(({ mode }) => {
       port: Number(env.APP_PORT) || 3000, allowedHosts: true,
     },
     define: {
-      DELCOM_BASEURL: JSON.stringify(
-        env.VITE_DELCOM_BASEURL || "https://open-api.delcom.org/api/v1"
-      ),
+      DELCOM_BASEURL: JSON.stringify(env.VITE_DELCOM_BASEURL || defaultBaseUrl),
     },
     test: {
       globals: true,
