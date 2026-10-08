@@ -140,7 +140,7 @@ const handleSubmit = async () => {
       <RouterLink
         to="/auth/login"
         data-testid="login-link"
-        class="font-semibold text-indigo-600 hover:underline"
+        class="font-semibold text-indigo-600 underline hover:underline"
       >
         Masuk
       </RouterLink>

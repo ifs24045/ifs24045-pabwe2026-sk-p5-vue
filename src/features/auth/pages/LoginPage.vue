@@ -94,7 +94,7 @@ const handleSubmit = async () => {
       <RouterLink
         to="/auth/register"
         data-testid="register-link"
-        class="font-semibold text-indigo-600 hover:underline"
+        class="font-semibold text-indigo-600 underline hover:underline"
       >
         Daftar sekarang
       </RouterLink>
