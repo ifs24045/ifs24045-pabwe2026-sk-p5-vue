@@ -191,7 +191,7 @@ const handleDeleteAll = async () => {
         <img
           v-if="aucation.cover"
           :src="getAssetUrl(aucation.cover)"
-          :alt="aucation.title"
+          alt=""
           class="aspect-video w-full bg-slate-100 object-cover"
         />
         <div
