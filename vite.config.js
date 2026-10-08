@@ -9,10 +9,10 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [vue(), tailwindcss()],
     server: {
-      port: Number(env.APP_PORT) || 3000,
+      port: Number(env.APP_PORT) || 3000, allowedHosts: true ,
     },
     preview: {
-      port: Number(env.APP_PORT) || 3000,
+      port: Number(env.APP_PORT) || 3000, allowedHosts: true,
     },
     define: {
       DELCOM_BASEURL: JSON.stringify(
