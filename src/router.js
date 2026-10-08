@@ -45,3 +45,17 @@ export const routes = [
     component: () => import("./features/common/pages/NotFoundPage.vue"),
   },
 ];
+
+export const authGuard = (to) => {
+  const isLoggedIn = Boolean(getAccessToken());
+
+  if (to.meta.requiresAuth && !isLoggedIn) return "/auth/login";
+  if (to.meta.guestOnly && isLoggedIn) return "/";
+
+  return true;
+};
+
+const router = createRouter({ history: createWebHistory(), routes });
+router.beforeEach(authGuard);
+
+export default router;
