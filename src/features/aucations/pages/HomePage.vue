@@ -152,6 +152,8 @@ const handleDeleteAll = async () => {
         class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
       />
       <input
+        id="search-lelang"
+        name="search"
         type="search"
         data-testid="search-input"
         placeholder="Cari judul atau deskripsi..."
