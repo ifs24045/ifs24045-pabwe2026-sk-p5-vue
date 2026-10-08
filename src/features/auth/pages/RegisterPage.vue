@@ -65,7 +65,7 @@ const handleSubmit = async () => {
       </div>
 
       <div>
-        <label for="email" class="mb-1.5 block text-sm font-semibold">
+        <label label for="login-email-input" class="mb-1.5 block text-sm font-semibold">
           Email
         </label>
         <div class="relative">
@@ -73,7 +73,7 @@ const handleSubmit = async () => {
             class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
           />
           <input
-            id="email"
+            id="login-email-input"
             type="email"
             data-testid="email-input"
             placeholder="nama@email.com"
@@ -85,7 +85,7 @@ const handleSubmit = async () => {
       </div>
 
       <div>
-        <label for="password" class="mb-1.5 block text-sm font-semibold">
+        <label for="login-password-input" class="mb-1.5 block text-sm font-semibold">
           Password
         </label>
         <div class="relative">
@@ -93,7 +93,7 @@ const handleSubmit = async () => {
             class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
           />
           <input
-            id="password"
+            id="login-password-input"
             type="password"
             data-testid="password-input"
             placeholder="Buat password"
@@ -125,8 +125,9 @@ const handleSubmit = async () => {
       </div>
 
       <button
+        id="login-submit-button"
         type="submit"
-        data-testid="register-button"
+        data-testid="login-button"
         class="w-full rounded-xl bg-indigo-600 py-3 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
         :disabled="authStore.isLoading"
       >
