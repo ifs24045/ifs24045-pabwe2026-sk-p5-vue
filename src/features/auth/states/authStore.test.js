@@ -1,5 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createPinia, setActivePinia } from "pinia";
+import { useUsersStore } from "../../users/states/usersStore";
+import { useAucationsStore } from "../../aucations/states/aucationsStore";
 
 vi.mock("../api/authApi", () => ({
   login: vi.fn(),
@@ -129,6 +131,8 @@ describe("authStore", () => {
       setActivePinia(createPinia());
       showConfirmDialog.mockResolvedValue(false);
       const store = useAuthStore();
+      useUsersStore().$patch({ profile: { id: 1 } });
+      useAucationsStore().$patch({ aucations: [{ id: 1 }] });
 
       const result = await store.logout();
 
@@ -153,6 +157,8 @@ describe("authStore", () => {
       expect(store.isAuthLogin).toBe(false);
       expect(store.isAuthLogout).toBe(true);
       expect(getAccessToken()).toBeNull();
+      expect(useUsersStore().profile).toBeNull();
+      expect(useAucationsStore().aucations).toEqual([]);
     });
   });
 });

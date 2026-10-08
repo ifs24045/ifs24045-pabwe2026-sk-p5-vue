@@ -11,11 +11,104 @@ import {
   formatDate,
   toApiDateTime,
   toInputDateTime,
+  parseApiDate,
+  isAucationClosed,
+  formatCountdown,
+  getHighestBid,
 } from "./toolsHelper";
 
 describe("toolsHelper", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+    describe("parseApiDate", () => {
+    it("membaca format API sebagai waktu lokal", () => {
+      const date = parseApiDate("2024-10-05 22:00:00");
+
+      expect(date.getFullYear()).toBe(2024);
+      expect(date.getMonth()).toBe(9);
+      expect(date.getDate()).toBe(5);
+      expect(date.getHours()).toBe(22);
+    });
+  });
+
+  describe("isAucationClosed", () => {
+    const now = new Date(2026, 9, 8, 12, 0, 0).getTime();
+
+    it("true jika batas waktu sudah lewat atau tepat sekarang", () => {
+      expect(isAucationClosed("2026-10-08 11:59:59", now)).toBe(true);
+      expect(isAucationClosed("2026-10-08 12:00:00", now)).toBe(true);
+    });
+
+    it("false jika masih berlangsung", () => {
+      expect(isAucationClosed("2026-10-08 12:00:01", now)).toBe(false);
+    });
+
+    it("memakai waktu sekarang sebagai default", () => {
+      vi.useFakeTimers({ toFake: ["Date"] });
+      vi.setSystemTime(new Date(2026, 9, 8, 12, 0, 0));
+
+      expect(isAucationClosed("2026-10-08 13:00:00")).toBe(false);
+      expect(isAucationClosed("2026-10-08 11:00:00")).toBe(true);
+
+      vi.useRealTimers();
+    });
+  });
+
+  describe("formatCountdown", () => {
+    const now = new Date(2026, 9, 8, 12, 0, 0).getTime();
+
+    it("'Ditutup' jika batas waktu sudah lewat", () => {
+      expect(formatCountdown("2026-10-08 12:00:00", now)).toBe("Ditutup");
+      expect(formatCountdown("2026-10-01 10:00:00", now)).toBe("Ditutup");
+    });
+
+    it("menampilkan hari dan jam", () => {
+      expect(formatCountdown("2026-10-10 15:30:00", now)).toBe("2 hari 3 jam");
+    });
+
+    it("menampilkan jam dan menit", () => {
+      expect(formatCountdown("2026-10-08 17:30:00", now)).toBe("5 jam 30 menit");
+    });
+
+    it("menampilkan menit", () => {
+      expect(formatCountdown("2026-10-08 12:45:00", now)).toBe("45 menit");
+    });
+
+    it("menampilkan 'Kurang dari 1 menit'", () => {
+      expect(formatCountdown("2026-10-08 12:00:30", now)).toBe(
+        "Kurang dari 1 menit"
+      );
+    });
+
+    it("memakai waktu sekarang sebagai default", () => {
+      vi.useFakeTimers({ toFake: ["Date"] });
+      vi.setSystemTime(new Date(2026, 9, 8, 12, 0, 0));
+
+      expect(formatCountdown("2026-10-08 12:10:00")).toBe("10 menit");
+
+      vi.useRealTimers();
+    });
+  });
+
+  describe("getHighestBid", () => {
+    it("0 jika tidak ada penawaran", () => {
+      expect(getHighestBid([])).toBe(0);
+    });
+
+    it("mengabaikan elemen berupa ID", () => {
+      expect(getHighestBid([2, 3])).toBe(0);
+    });
+
+    it("mengambil nominal tertinggi dari objek bid", () => {
+      expect(
+        getHighestBid([
+          { id: 1, bid: 6000000 },
+          { id: 2, bid: 7000000 },
+        ])
+      ).toBe(7000000);
+    });
   });
 
   describe("toApiDateTime", () => {

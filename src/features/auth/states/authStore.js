@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 import * as authApi from "../api/authApi";
+import { useUsersStore } from "../../users/states/usersStore";
+import { useAucationsStore } from "../../aucations/states/aucationsStore";
 import {
   getAccessToken,
   putAccessToken,
@@ -73,6 +75,8 @@ export const useAuthStore = defineStore("auth", {
       this.token = null;
       this.isAuthLogin = false;
       this.isAuthLogout = true;
+      useUsersStore().$reset();
+      useAucationsStore().$reset();
       return true;
     },
   },

@@ -65,3 +65,32 @@ export const toApiDateTime = (value) => {
 // "2024-10-05 22:00:00" (API) -> "2024-10-05T22:00" (input datetime-local)
 export const toInputDateTime = (value) =>
   value ? value.replace(" ", "T").slice(0, 16) : "";
+
+// "2024-10-05 22:00:00" (API) -> Date, dibaca sebagai waktu lokal
+export const parseApiDate = (value) => new Date(value.replace(" ", "T"));
+
+export const isAucationClosed = (closedAt, now = Date.now()) =>
+  parseApiDate(closedAt).getTime() <= now;
+
+export const formatCountdown = (closedAt, now = Date.now()) => {
+  const diff = parseApiDate(closedAt).getTime() - now;
+  if (diff <= 0) return "Ditutup";
+
+  const totalMinutes = Math.floor(diff / 60000);
+  const days = Math.floor(totalMinutes / 1440);
+  const hours = Math.floor((totalMinutes % 1440) / 60);
+  const minutes = totalMinutes % 60;
+
+  if (days > 0) return `${days} hari ${hours} jam`;
+  if (hours > 0) return `${hours} jam ${minutes} menit`;
+  if (minutes > 0) return `${minutes} menit`;
+  return "Kurang dari 1 menit";
+};
+
+// Penawaran tertinggi dari array bids. Elemen berupa objek { bid } dihitung;
+// elemen berupa ID (seperti di respons daftar lelang) diabaikan. 0 jika tidak ada.
+export const getHighestBid = (bids) =>
+  Math.max(
+    0,
+    ...bids.map((item) => (typeof item === "object" ? item.bid : 0))
+  );
