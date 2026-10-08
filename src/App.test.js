@@ -153,10 +153,10 @@ describe("App (integrasi)", () => {
       await wrapper.get('[data-testid="email-input"]').setValue("budi@mail.com");
       await wrapper.get('[data-testid="password-input"]').setValue("rahasia");
       await wrapper.get("form").trigger("submit");
+      await vi.waitFor(() => expect(currentPath()).toBe("/"));
       await flushPromises();
 
       expect(localStorage.getItem("accessToken")).toBe("token-baru");
-      expect(currentPath()).toBe("/");
       expect(has("home-page")).toBe(true);
 
       const loginCall = fetchMock.mock.calls.find(([url]) =>
