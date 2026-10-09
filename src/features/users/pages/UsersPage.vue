@@ -56,6 +56,10 @@ onMounted(() => {
         <img
           :src="getAssetUrl(user.photo)"
           :alt="user.name"
+          width="56"
+          height="56"
+          loading="lazy"
+          decoding="async"
           class="h-14 w-14 shrink-0 rounded-full bg-slate-100 object-cover"
         />
         <div class="min-w-0">

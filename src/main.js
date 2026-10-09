@@ -16,4 +16,11 @@ window.addEventListener("vite:preloadError", (event) => {
   window.location.reload();
 });
 
-createApp(App).use(createPinia()).use(router).mount("#app");
+const app = createApp(App).use(createPinia()).use(router);
+
+// Tunggu halaman pertama selesai dimuat sebelum mount, supaya kerangka di
+// index.html tetap tampil dan halaman tidak pernah kosong di tengah jalan.
+router
+  .isReady()
+  .catch(() => {})
+  .then(() => app.mount("#app"));
