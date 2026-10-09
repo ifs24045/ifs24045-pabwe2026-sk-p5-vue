@@ -6,13 +6,15 @@ import { Gavel } from "lucide-vue-next";
 <template>
   <div class="grid min-h-screen lg:grid-cols-2" data-testid="auth-layout">
     <!-- Banner (hanya tampil di layar besar) -->
-    <aside
-      class="relative hidden flex-col justify-between overflow-hidden bg-linear-to-br from-indigo-600 via-indigo-700 to-violet-800 p-12 text-white lg:flex"
+        <aside
+      class="relative hidden flex-col justify-between overflow-hidden bg-indigo-900 p-12 text-white lg:flex"
       data-testid="auth-banner"
+      aria-label="Tentang Delcom Auction"
     >
       <div class="flex items-center gap-3 text-xl font-extrabold">
         <span
-          class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15"
+          class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-700"
+          aria-hidden="true"
         >
           <Gavel class="h-6 w-6" />
         </span>
@@ -29,7 +31,7 @@ import { Gavel } from "lucide-vue-next";
         </p>
       </div>
 
-      <p class="text-sm text-indigo-200">&copy; Delcom Auction</p>
+      <p class="text-sm text-indigo-100">&copy; Delcom Auction</p>
     </aside>
 
     <!-- Area formulir -->
