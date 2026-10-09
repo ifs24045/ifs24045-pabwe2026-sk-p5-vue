@@ -3,6 +3,28 @@ import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 import process from "process";
 
+// Menyisipkan CSS utama langsung ke index.html saat build produksi agar tidak
+// ada permintaan CSS yang memblokir render (audit "Render blocking requests").
+const inlineEntryCss = () => ({
+  name: "inline-entry-css",
+  apply: "build",
+  enforce: "post",
+  generateBundle(_, bundle) {
+    const html = bundle["index.html"];
+    if (!html || typeof html.source !== "string") return;
+
+    html.source = html.source.replace(
+      /<link rel="stylesheet"[^>]*href="\/(assets\/[^"]+\.css)"[^>]*>/g,
+      (tag, file) => {
+        const css = bundle[file];
+        if (!css || typeof css.source !== "string") return tag;
+        delete bundle[file];
+        return `<style>${css.source}</style>`;
+      }
+    );
+  },
+});
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
@@ -14,7 +36,7 @@ export default defineConfig(({ mode }) => {
       : "https://open-api.delcom.org/api/v1";
 
   return {
-    plugins: [vue(), tailwindcss()],
+    plugins: [vue(), tailwindcss(), inlineEntryCss()],
     server: {
       port: Number(env.APP_PORT) || 3000, allowedHosts: true ,
     },
