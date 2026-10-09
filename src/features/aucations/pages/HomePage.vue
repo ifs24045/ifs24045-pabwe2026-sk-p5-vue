@@ -6,6 +6,7 @@ import { useAucationsStore } from "../states/aucationsStore";
 import { useInput } from "../../../hooks/useInput";
 import { useNow } from "../../../hooks/useNow";
 import { getAssetUrl } from "../../../helpers/apiHelper";
+import { computed, defineAsyncComponent, ref, watch } from "vue";
 import {
   formatRupiah,
   formatCountdown,
@@ -14,6 +15,16 @@ import {
   showConfirmDialog,
 } from "../../../helpers/toolsHelper";
 import AddModal from "../modals/AddModal.vue";
+
+const AddModal = defineAsyncComponent(() =>
+  import("../modals/AddModal.vue").then((m) => m.default)
+);
+const isAddLoaded = ref(false);
+
+const isAddOpen = ref(false);
+watch(isAddOpen, (open) => {
+  if (open) isAddLoaded.value = true;
+});
 
 const TABS = [
   { key: "all", label: "Semua Lelang" },

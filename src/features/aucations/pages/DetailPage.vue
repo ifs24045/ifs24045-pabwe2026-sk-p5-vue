@@ -1,6 +1,9 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
+import { computed, defineAsyncComponent, ref, watch } from "vue";
+import ChangeCoverModal from "../modals/ChangeCoverModal.vue";
+import BidModal from "../modals/BidModal.vue";
 import {
   ArrowLeft,
   Camera,
@@ -42,6 +45,19 @@ const aucation = computed(() => {
   return data && String(data.id) === String(route.params.aucationId)
     ? data
     : null;
+});
+
+const MarkdownViewer = defineAsyncComponent(
+  () => import("../components/MarkdownViewer.vue").then((m) => m.default)
+);
+const ChangeModal = defineAsyncComponent(
+  () => import("../modals/ChangeModal.vue").then((m) => m.default)
+);
+const isChangeLoaded = ref(false);
+
+const isChangeOpen = ref(false);
+watch(isChangeOpen, (open) => {
+  if (open) isChangeLoaded.value = true;
 });
 
 const isOwner = computed(
