@@ -4,15 +4,16 @@ import App from "./App.vue";
 import router from "./router";
 import "./index.css";
 
+// Jika file halaman (lazy chunk) gagal diunduh, muat ulang paling banyak
+// sekali dalam 30 detik supaya tidak terjadi reload berulang.
 window.addEventListener("vite:preloadError", (event) => {
   event.preventDefault();
 
-  if (sessionStorage.getItem("chunk-reload") === "1") return;
+  const lastReload = Number(sessionStorage.getItem("chunk-reload-at") || 0);
+  if (Date.now() - lastReload < 30000) return;
 
-  sessionStorage.setItem("chunk-reload", "1");
+  sessionStorage.setItem("chunk-reload-at", String(Date.now()));
   window.location.reload();
 });
 
 createApp(App).use(createPinia()).use(router).mount("#app");
-
-sessionStorage.removeItem("chunk-reload");
