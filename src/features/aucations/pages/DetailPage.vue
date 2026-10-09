@@ -47,19 +47,6 @@ const aucation = computed(() => {
     : null;
 });
 
-const MarkdownViewer = defineAsyncComponent(
-  () => import("../components/MarkdownViewer.vue").then((m) => m.default)
-);
-const ChangeModal = defineAsyncComponent(
-  () => import("../modals/ChangeModal.vue").then((m) => m.default)
-);
-const isChangeLoaded = ref(false);
-
-const isChangeOpen = ref(false);
-watch(isChangeOpen, (open) => {
-  if (open) isChangeLoaded.value = true;
-});
-
 const isOwner = computed(
   () => usersStore.profile?.id === aucation.value.user_id
 );
