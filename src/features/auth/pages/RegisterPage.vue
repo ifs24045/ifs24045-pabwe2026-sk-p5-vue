@@ -54,6 +54,7 @@ const handleSubmit = async () => {
           />
           <input
             id="name"
+            autocomplete="name"
             type="text"
             data-testid="name-input"
             placeholder="Nama kamu"
@@ -65,7 +66,7 @@ const handleSubmit = async () => {
       </div>
 
       <div>
-        <label label for="login-email-input" class="mb-1.5 block text-sm font-semibold">
+        <label for="register-email-input" class="mb-1.5 block text-sm font-semibold">
           Email
         </label>
         <div class="relative">
@@ -73,7 +74,8 @@ const handleSubmit = async () => {
             class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
           />
           <input
-            id="login-email-input"
+            id="register-email-input"
+            autocomplete="email"
             type="email"
             data-testid="email-input"
             placeholder="nama@email.com"
@@ -85,7 +87,7 @@ const handleSubmit = async () => {
       </div>
 
       <div>
-        <label for="login-password-input" class="mb-1.5 block text-sm font-semibold">
+        <label for="register-password-input" class="mb-1.5 block text-sm font-semibold">
           Password
         </label>
         <div class="relative">
@@ -93,7 +95,8 @@ const handleSubmit = async () => {
             class="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
           />
           <input
-            id="login-password-input"
+            id="register-password-input"
+            autocomplete="new-password"
             type="password"
             data-testid="password-input"
             placeholder="Buat password"
@@ -114,6 +117,7 @@ const handleSubmit = async () => {
           />
           <input
             id="confirm-password"
+            autocomplete="new-password"
             type="password"
             data-testid="confirm-password-input"
             placeholder="Ulangi password"
@@ -125,9 +129,9 @@ const handleSubmit = async () => {
       </div>
 
       <button
-        id="login-submit-button"
+        id="register-submit-button"
         type="submit"
-        data-testid="login-button"
+        data-testid="register-button"
         class="w-full rounded-xl bg-indigo-600 py-3 text-sm font-bold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
         :disabled="authStore.isLoading"
       >

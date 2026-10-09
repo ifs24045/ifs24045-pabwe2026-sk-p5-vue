@@ -48,6 +48,7 @@ const handleSubmit = async () => {
           />
           <input
             id="login-email-input"
+            autocomplete="email"
             type="email"
             data-testid="email-input"
             placeholder="nama@email.com"
@@ -68,6 +69,7 @@ const handleSubmit = async () => {
           />
           <input
             id="login-password-input"
+            autocomplete="current-password"
             type="password"
             data-testid="password-input"
             placeholder="Masukkan password"

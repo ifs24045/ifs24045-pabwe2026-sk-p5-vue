@@ -2,6 +2,11 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { flushPromises } from "@vue/test-utils";
 import { nextTick } from "vue";
 
+// Komponen async butuh beberapa putaran event loop sampai selesai dimuat
+const settle = async () => {
+  for (let i = 0; i < 5; i++) await flushPromises();
+};
+
 // Modal dan viewer diganti stub agar Toast UI tidak ikut dimuat
 vi.mock("../components/MarkdownViewer.vue", async () => {
   const { h } = await import("vue");
@@ -142,6 +147,7 @@ const setup = async ({
     route: `/aucations/${id}`,
     routes,
   });
+  await settle();
   return { ...utils, store };
 };
 
@@ -294,6 +300,7 @@ describe("DetailPage", () => {
       expect(exists(wrapper, "change-modal")).toBe(false);
 
       await byId(wrapper, "change-button").trigger("click");
+      await settle();
       expect(exists(wrapper, "change-modal")).toBe(true);
 
       await byId(wrapper, "change-modal-saved").trigger("click");

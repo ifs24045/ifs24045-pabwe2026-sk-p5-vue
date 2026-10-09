@@ -1,12 +1,11 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, defineAsyncComponent, ref, watch } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 import { Plus, Search, Trash2, ImageIcon } from "lucide-vue-next";
 import { useAucationsStore } from "../states/aucationsStore";
 import { useInput } from "../../../hooks/useInput";
 import { useNow } from "../../../hooks/useNow";
 import { getAssetUrl } from "../../../helpers/apiHelper";
-import { computed, defineAsyncComponent, ref, watch } from "vue";
 import {
   formatRupiah,
   formatCountdown,
@@ -14,7 +13,12 @@ import {
   isAucationClosed,
   showConfirmDialog,
 } from "../../../helpers/toolsHelper";
-import AddModal from "../modals/AddModal.vue";
+
+// Modal (beserta editor markdown yang besar) baru diunduh saat pertama dibuka
+const AddModal = defineAsyncComponent(() =>
+  import("../modals/AddModal.vue").then((m) => m.default)
+);
+const isAddLoaded = ref(false);
 
 const TABS = [
   { key: "all", label: "Semua Lelang" },
@@ -30,6 +34,9 @@ const now = useNow();
 
 const [search, onSearchChange] = useInput("");
 const isAddOpen = ref(false);
+watch(isAddOpen, (open) => {
+  if (open) isAddLoaded.value = true;
+});
 
 // Tab aktif mengikuti query ?filter=, nilai tak dikenal dianggap "all"
 const activeTab = computed(() => {
@@ -237,6 +244,7 @@ const handleDeleteAll = async () => {
     </div>
 
     <AddModal
+      v-if="isAddLoaded"
       :open="isAddOpen"
       @close="isAddOpen = false"
       @saved="loadAucations"

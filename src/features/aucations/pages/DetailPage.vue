@@ -1,9 +1,6 @@
 <script setup>
-import { computed, ref, watch } from "vue";
-import { RouterLink, useRoute, useRouter } from "vue-router";
 import { computed, defineAsyncComponent, ref, watch } from "vue";
-import ChangeCoverModal from "../modals/ChangeCoverModal.vue";
-import BidModal from "../modals/BidModal.vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import {
   ArrowLeft,
   Camera,
@@ -24,10 +21,17 @@ import {
   isAucationClosed,
   showConfirmDialog,
 } from "../../../helpers/toolsHelper";
-import MarkdownViewer from "../components/MarkdownViewer.vue";
-import ChangeModal from "../modals/ChangeModal.vue";
 import ChangeCoverModal from "../modals/ChangeCoverModal.vue";
 import BidModal from "../modals/BidModal.vue";
+
+// Komponen berat (Toast UI) dimuat terpisah supaya halaman tampil lebih dulu
+const MarkdownViewer = defineAsyncComponent(
+  () => import("../components/MarkdownViewer.vue").then((m) => m.default)
+);
+const ChangeModal = defineAsyncComponent(
+  () => import("../modals/ChangeModal.vue").then((m) => m.default)
+);
+const isChangeLoaded = ref(false);
 
 const route = useRoute();
 const router = useRouter();
@@ -36,6 +40,9 @@ const usersStore = useUsersStore();
 const now = useNow();
 
 const isChangeOpen = ref(false);
+watch(isChangeOpen, (open) => {
+  if (open) isChangeLoaded.value = true;
+});
 const isCoverOpen = ref(false);
 const isBidOpen = ref(false);
 
@@ -342,6 +349,7 @@ const handleCancelBid = async () => {
       </div>
 
       <ChangeModal
+        v-if="isChangeLoaded"
         :open="isChangeOpen"
         :aucation="aucation"
         @close="isChangeOpen = false"

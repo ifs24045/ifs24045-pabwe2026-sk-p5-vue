@@ -2,6 +2,11 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { flushPromises } from "@vue/test-utils";
 import { nextTick } from "vue";
 
+// Komponen async butuh beberapa putaran event loop sampai selesai dimuat
+const settle = async () => {
+  for (let i = 0; i < 5; i++) await flushPromises();
+};
+
 // AddModal diganti stub agar Toast UI tidak ikut dimuat
 vi.mock("../modals/AddModal.vue", async () => {
   const { h } = await import("vue");
@@ -368,6 +373,7 @@ describe("HomePage", () => {
       expect(wrapper.find('[data-testid="add-modal"]').exists()).toBe(false);
 
       await byId(wrapper, "add-button").trigger("click");
+      await settle();
       expect(wrapper.find('[data-testid="add-modal"]').exists()).toBe(true);
 
       await byId(wrapper, "modal-close").trigger("click");
@@ -379,6 +385,7 @@ describe("HomePage", () => {
       const { wrapper, store } = await setup();
 
       await byId(wrapper, "add-button").trigger("click");
+      await settle();
       await byId(wrapper, "modal-save").trigger("click");
 
       expect(store.fetchAucations).toHaveBeenCalledTimes(2);
