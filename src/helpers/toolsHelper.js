@@ -1,28 +1,35 @@
-import Swal from "sweetalert2";
+// SweetAlert2 dimuat hanya saat dialog pertama kali dibutuhkan, supaya tidak
+// membengkakkan bundle awal (memperbaiki Performance / unused JavaScript).
+const loadSwal = async () => (await import("sweetalert2")).default;
 
 const PRIMARY_COLOR = "#4f46e5";
 
-export const showSuccessDialog = (message, title = "Berhasil") =>
-  Swal.fire({
+export const showSuccessDialog = async (message, title = "Berhasil") => {
+  const Swal = await loadSwal();
+  return Swal.fire({
     icon: "success",
     title,
     text: message,
     confirmButtonColor: PRIMARY_COLOR,
   });
+};
 
-export const showErrorDialog = (message, title = "Gagal") =>
-  Swal.fire({
+export const showErrorDialog = async (message, title = "Gagal") => {
+  const Swal = await loadSwal();
+  return Swal.fire({
     icon: "error",
     title,
     text: message,
     confirmButtonColor: PRIMARY_COLOR,
   });
+};
 
 export const showConfirmDialog = async (
   message,
   title = "Apakah Anda yakin?",
   confirmText = "Ya, lanjutkan"
 ) => {
+  const Swal = await loadSwal();
   const result = await Swal.fire({
     icon: "warning",
     title,

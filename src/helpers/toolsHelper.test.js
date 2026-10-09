@@ -22,7 +22,7 @@ describe("toolsHelper", () => {
     vi.clearAllMocks();
   });
 
-    describe("parseApiDate", () => {
+  describe("parseApiDate", () => {
     it("membaca format API sebagai waktu lokal", () => {
       const date = parseApiDate("2024-10-05 22:00:00");
 
@@ -130,10 +130,10 @@ describe("toolsHelper", () => {
     it("mengubah format API menjadi format input", () => {
       expect(toInputDateTime("2024-10-05 22:00:00")).toBe("2024-10-05T22:00");
     });
-  });  
+  });
 
-  it("showSuccessDialog dengan judul default dan custom", () => {
-    showSuccessDialog("Data tersimpan");
+  it("showSuccessDialog dengan judul default dan custom", async () => {
+    await showSuccessDialog("Data tersimpan");
     expect(Swal.fire).toHaveBeenLastCalledWith(
       expect.objectContaining({
         icon: "success",
@@ -142,14 +142,14 @@ describe("toolsHelper", () => {
       })
     );
 
-    showSuccessDialog("Data tersimpan", "Sukses");
+    await showSuccessDialog("Data tersimpan", "Sukses");
     expect(Swal.fire).toHaveBeenLastCalledWith(
       expect.objectContaining({ title: "Sukses" })
     );
   });
 
-  it("showErrorDialog dengan judul default dan custom", () => {
-    showErrorDialog("Terjadi kesalahan");
+  it("showErrorDialog dengan judul default dan custom", async () => {
+    await showErrorDialog("Terjadi kesalahan");
     expect(Swal.fire).toHaveBeenLastCalledWith(
       expect.objectContaining({
         icon: "error",
@@ -158,7 +158,7 @@ describe("toolsHelper", () => {
       })
     );
 
-    showErrorDialog("Terjadi kesalahan", "Oops");
+    await showErrorDialog("Terjadi kesalahan", "Oops");
     expect(Swal.fire).toHaveBeenLastCalledWith(
       expect.objectContaining({ title: "Oops" })
     );
