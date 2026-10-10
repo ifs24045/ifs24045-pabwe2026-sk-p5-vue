@@ -66,8 +66,8 @@ const handleSubmit = async () => {
       @click="close"
     />
 
-    <div
-      role="dialog"
+    <dialog
+      open
       aria-modal="true"
       aria-labelledby="add-modal-title"
       class="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-6 shadow-xl"
@@ -162,6 +162,6 @@ const handleSubmit = async () => {
           </button>
         </div>
       </form>
-    </div>
+    </dialog>
   </div>
 </template>

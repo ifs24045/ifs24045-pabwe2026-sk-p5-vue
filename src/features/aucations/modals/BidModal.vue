@@ -67,8 +67,8 @@ const handleSubmit = async () => {
       @click="close"
     />
 
-    <div
-      role="dialog"
+    <dialog
+      open
       aria-modal="true"
       aria-labelledby="bid-modal-title"
       class="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
@@ -146,6 +146,6 @@ const handleSubmit = async () => {
           </button>
         </div>
       </form>
-    </div>
+    </dialog>
   </div>
 </template>

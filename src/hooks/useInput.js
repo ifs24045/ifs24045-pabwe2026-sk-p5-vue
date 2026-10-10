@@ -6,7 +6,7 @@ export function useInput(defaultValue = "") {
   const value = ref(defaultValue);
 
   const onChange = (event) => {
-    value.value = event && event.target ? event.target.value : event;
+    value.value = event?.target ? event.target.value : event;
   };
 
   const reset = () => {

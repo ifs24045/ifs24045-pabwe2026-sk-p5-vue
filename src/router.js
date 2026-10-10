@@ -46,14 +46,18 @@ export const routes = [
   },
 ];
 
-export const authGuard = (to) => {
+// Selalu mengembalikan string: path tujuan redirect, atau "" jika boleh lanjut.
+export const getRedirectPath = (to) => {
   const isLoggedIn = Boolean(getAccessToken());
 
   if (to.meta.requiresAuth && !isLoggedIn) return "/auth/login";
   if (to.meta.guestOnly && isLoggedIn) return "/";
 
-  return true;
+  return "";
 };
+
+// String kosong berarti tidak ada redirect (undefined = lanjut di vue-router).
+export const authGuard = (to) => getRedirectPath(to) || undefined;
 
 const router = createRouter({ history: createWebHistory(), routes });
 router.beforeEach(authGuard);

@@ -85,8 +85,8 @@ onBeforeUnmount(revokePreview);
       @click="close"
     />
 
-    <div
-      role="dialog"
+    <dialog
+      open
       aria-modal="true"
       aria-labelledby="cover-modal-title"
       class="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
@@ -163,6 +163,6 @@ onBeforeUnmount(revokePreview);
           </button>
         </div>
       </form>
-    </div>
+    </dialog>
   </div>
 </template>
